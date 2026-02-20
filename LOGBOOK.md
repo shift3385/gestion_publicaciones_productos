@@ -23,5 +23,10 @@ En este archivo se registran todos los comandos ejecutados durante el desarrollo
 - `node seed-users.js`: Script personalizado para insertar los 5 usuarios de prueba.
 - `node test-login.js`: Script personalizado para verificar el flujo de login y generación de Token JWT.
 
+## Fase 4: Gestión de Productos
+- `npx nest generate resource products --no-spec`: Generación del recurso CRUD de productos.
+- Implementación de Slugs automáticos (BeforeInsert/BeforeUpdate) y relación ManyToOne con Usuarios.
+- `node seed-products.js`: Script de siembra con 3 productos iniciales (Silla, Monitor, Teclado).
+
 ---
 *Última actualización: 20 de febrero de 2026*
