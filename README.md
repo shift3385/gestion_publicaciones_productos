@@ -24,6 +24,15 @@ Este es el repositorio central donde estoy desarrollando el sistema de gestión 
     Una vez que arranques el servidor, puedes ver y probar todos los endpoints aquí:
     👉 **[http://localhost:3001/api/docs](http://localhost:3001/api/docs)**
 
+## 🧪 Pruebas Automáticas (E2E)
+
+He configurado una suite de pruebas de punta a punta para asegurar que todo funcione como debe:
+
+```bash
+npm run test:e2e
+```
+*Este comando prueba automáticamente el Login, la creación de Productos y las Publicaciones en menos de 5 segundos.*
+
 ## 🛠️ Comandos que uso frecuentemente
 
 - **Levantar todo:** `docker-compose up -d`

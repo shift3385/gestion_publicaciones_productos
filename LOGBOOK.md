@@ -45,7 +45,12 @@ En este archivo se registran todos los comandos ejecutados durante el desarrollo
 - Configuración global de Swagger en `/api/docs` con soporte para Bearer Authentication.
 - Documentación OpenAPI 3.0 en controladores y DTOs (@ApiTags, @ApiProperty).
 - Implementación del endpoint `/api/auth/profile` y lógica funcional de Update/Delete en todos los CRUDs.
-- **Tarea #65712 finalizada satisfactoriamente.**
+
+## Fase 8: Pruebas de Integración (E2E Testing)
+- Implementación de suite de pruebas profesional en `test/app.e2e-spec.ts`.
+- Tecnologías: **Jest** + **Supertest**.
+- Flujo testeado: Autenticación ➡️ Creación de Producto ➡️ Creación de Publicación.
+- **Resultado: 100% de éxito (3 tests passed).** Esto asegura la estabilidad del sistema ante futuros cambios.
 
 ---
 *Última actualización: 20 de febrero de 2026*
