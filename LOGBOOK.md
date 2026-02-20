@@ -28,5 +28,11 @@ En este archivo se registran todos los comandos ejecutados durante el desarrollo
 - Implementación de Slugs automáticos (BeforeInsert/BeforeUpdate) y relación ManyToOne con Usuarios.
 - `node seed-products.js`: Script de siembra con 3 productos iniciales (Silla, Monitor, Teclado).
 
+## Fase 5: Protección de Rutas (JWT Auth Guards)
+- Implementación de `JwtStrategy` para validar tokens en los headers (Bearer Token).
+- Configuración de `AuthGuard` global en el controlador de productos.
+- Creación del decorador personalizado `@GetUser()` para extraer datos del usuario del JWT.
+- Verificación de seguridad: Bloqueo de peticiones no autorizadas (401 Unauthorized).
+
 ---
 *Última actualización: 20 de febrero de 2026*

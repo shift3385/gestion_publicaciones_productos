@@ -3,10 +3,12 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { ProductsService } from './products.service';
 import { ProductsController } from './products.controller';
 import { Product } from './entities/product.entity';
+import { AuthModule } from '../auth/auth.module';
 
 @Module({
   imports: [
     TypeOrmModule.forFeature([Product]),
+    AuthModule, // <-- Importamos AuthModule para habilitar la seguridad
   ],
   controllers: [ProductsController],
   providers: [ProductsService],
