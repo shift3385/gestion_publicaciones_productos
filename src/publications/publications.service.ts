@@ -57,11 +57,26 @@ export class PublicationsService {
     return publication;
   }
 
-  update(id: string, updatePublicationDto: UpdatePublicationDto) {
-    return `This action updates a #${id} publication`;
+  async update(id: string, updatePublicationDto: UpdatePublicationDto) {
+    const publication = await this.publicationRepository.preload({
+      id: id,
+      ...updatePublicationDto,
+    });
+
+    if (!publication) throw new NotFoundException(`Publication with id ${id} not found`);
+
+    try {
+      await this.publicationRepository.save(publication);
+      return publication;
+    } catch (error) {
+      console.log(error);
+      throw new InternalServerErrorException('Error updating publication');
+    }
   }
 
-  remove(id: string) {
-    return `This action removes a #${id} publication`;
+  async remove(id: string) {
+    const publication = await this.findOne(id);
+    await this.publicationRepository.remove(publication);
+    return { deleted: true };
   }
 }

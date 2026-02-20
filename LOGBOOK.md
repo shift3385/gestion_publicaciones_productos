@@ -38,9 +38,14 @@ En este archivo se registran todos los comandos ejecutados durante el desarrollo
 - `npx nest generate resource publications --no-spec`: Generación del recurso de publicaciones.
 - Implementación de entidad `Publication` con Enums para estados (DRAFT, ACTIVE, CLOSED).
 - Relaciones ManyToOne con `User` y `Product`.
-- Validación de lógica de negocio: Fechas de inicio y fin, y existencia de productos.
 - `node test-publication.js`: Script de prueba de integración (Login -> Get Product -> Create Publication).
 - Corregidas rutas de importación relativas para asegurar la compilación exitosa.
+
+## Fase 7: Documentación Swagger y Finalización
+- Configuración global de Swagger en `/api/docs` con soporte para Bearer Authentication.
+- Documentación OpenAPI 3.0 en controladores y DTOs (@ApiTags, @ApiProperty).
+- Implementación del endpoint `/api/auth/profile` y lógica funcional de Update/Delete en todos los CRUDs.
+- **Tarea #65712 finalizada satisfactoriamente.**
 
 ---
 *Última actualización: 20 de febrero de 2026*

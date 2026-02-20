@@ -42,11 +42,39 @@ export class UsersService {
     return user;
   }
 
-  update(id: string, updateUserDto: UpdateUserDto) {
-    return `This action updates a #${id} user`;
+  async update(id: string, updateUserDto: UpdateUserDto) {
+    const { password, ...userData } = updateUserDto;
+
+    const user = await this.userRepository.preload({
+      id: id,
+      ...userData,
+    });
+
+    if (!user) throw new NotFoundException(`User with id ${id} not found`);
+
+    if (password) {
+      user.password = bcrypt.hashSync(password, 10);
+    }
+
+    try {
+      await this.userRepository.save(user);
+      return user;
+    } catch (error) {
+      this.handleDBExceptions(error);
+    }
   }
 
-  remove(id: string) {
-    return `This action removes a #${id} user`;
+  async remove(id: string) {
+    const user = await this.findOne(id);
+    await this.userRepository.remove(user);
+    return { deleted: true };
+  }
+
+  private handleDBExceptions(error: any) {
+    if (error.code === '23505')
+      throw new BadRequestException(error.detail);
+    
+    console.log(error);
+    throw new InternalServerErrorException('Unexpected error, check server logs');
   }
 }

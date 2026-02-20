@@ -18,22 +18,11 @@ Este es el repositorio central donde estoy desarrollando el sistema de gestión 
 
 ## 🏃 Cómo ponerlo a andar
 
-Si acabas de clonar el repo, esto es lo que tienes que hacer:
-
-1.  **Instalar dependencias:**
-    ```bash
-    npm install
-    ```
-2.  **Configurar el entorno:**
-    Crea tu archivo `.env` basado en las credenciales que definí en el `docker-compose.yaml`.
-3.  **Levantar la base de datos:**
-    ```bash
-    docker-compose up -d
-    ```
-4.  **Correr en desarrollo:**
-    ```bash
-    npm run start:dev
-    ```
+1.  **Instalar dependencias:** `npm install`
+2.  **Levantar DB:** `docker-compose up -d`
+3.  **Documentación Interactiva:** 
+    Una vez que arranques el servidor, puedes ver y probar todos los endpoints aquí:
+    👉 **[http://localhost:3001/api/docs](http://localhost:3001/api/docs)**
 
 ## 🛠️ Comandos que uso frecuentemente
 
