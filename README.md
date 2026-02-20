@@ -1,50 +1,39 @@
-# Gestión de Publicaciones y Productos (NestJS)
+# Gestión de Publicaciones y Productos
 
-Aplicación de ejemplo desarrollada para la investigación y dominio del Framework NestJS, aplicando principios de arquitectura limpia, patrones de diseño y estándares de la industria.
+Este es el repositorio central donde estoy desarrollando el sistema de gestión de publicaciones y productos. El objetivo es montar una arquitectura sólida con NestJS que me sirva de base para futuros proyectos, aplicando buenas prácticas y asegurando que sea escalable.
 
-## 🛠️ Herramientas y Tecnologías Utilizadas
+## 🚀 Lo que he montado hasta ahora
 
-### Entorno de Desarrollo (Pre-instalado)
-- **Node.js**: v24.11.0 (Entorno de ejecución).
-- **NPM**: 11.6.4 (Gestor de paquetes).
-- **Docker Desktop**: Utilizado para la orquestación de servicios de infraestructura (PostgreSQL).
+1.  **Base del Proyecto:** Ya tengo el boilerplate de NestJS listo y limpio.
+2.  **Infraestructura con Docker:** He configurado un contenedor de PostgreSQL (v15) para no ensuciar mi instalación local. Solo necesito correr `docker-compose up -d` y ya tengo la base de datos lista.
+3.  **Control de Versiones:** Repositorio inicializado, ignorando lo que no debe subirse (como `node_modules` y `.env`) para mantener la seguridad y el orden.
 
-### Herramientas Instaladas Globalmente
-Se instaló el CLI oficial de NestJS para la generación de esquemas y recursos:
-```bash
-npm install -g @nestjs/cli
-```
+## 🛠️ Tecnologías que estoy usando
 
-### Dependencias del Proyecto (Locales)
-Se instalaron los siguientes paquetes para dar soporte a los requisitos de negocio:
-- **Core ORM**: `@nestjs/typeorm`, `typeorm`, `pg` (Driver para PostgreSQL).
-- **Configuración**: `@nestjs/config` (Manejo de variables de entorno `.env`).
-- **Seguridad y Auth**: `@nestjs/passport`, `passport`, `passport-jwt`, `@nestjs/jwt`, `bcrypt`.
-- **Validación**: `class-validator`, `class-transformer`.
-- **Documentación**: `@nestjs/swagger`, `swagger-ui-express`.
+*   **Framework:** NestJS (TypeScript).
+*   **Base de Datos:** PostgreSQL corriendo en Docker.
+*   **ORM:** TypeORM (próximamente configurado).
+*   **Seguridad:** JWT y Bcrypt para la parte de usuarios.
+*   **Documentación:** Swagger para tener los endpoints bien mapeados.
 
-*Comando de instalación masiva:*
-```bash
-npm install @nestjs/typeorm typeorm pg @nestjs/config class-validator class-transformer @nestjs/passport passport passport-jwt @nestjs/jwt bcrypt @nestjs/swagger swagger-ui-express
-```
+## 🏃 Cómo ponerlo a andar
 
-## 🏗️ Pasos de Implementación Realizados
+Si acabas de clonar el repo, esto es lo que tienes que hacer:
 
-### 1. Preparación de la Infraestructura (Docker)
-Para mantener el sistema limpio y cumplir con el requisito de base de datos **PostgreSQL**, se optó por un contenedor Docker. Se creó el archivo `docker-compose.yaml` y se ejecutó:
-```bash
-docker-compose up -d
-```
-*Este comando descarga la imagen oficial de Postgres 15-alpine y levanta el servicio en el puerto 5432.*
-
-### 2. Inicialización del Proyecto NestJS
-Se utilizó el CLI para generar la estructura base del proyecto:
-```bash
-nest new . --package-manager npm --skip-git
-```
-
-### 3. Configuración de Variables de Entorno
-Se creó un archivo `.env` en la raíz para centralizar las credenciales de acceso a la DB y secretos de JWT, asegurando que el código no contenga datos sensibles hardcodeados.
+1.  **Instalar dependencias:**
+    ```bash
+    npm install
+    ```
+2.  **Configurar el entorno:**
+    Crea tu archivo `.env` basado en las credenciales que definí en el `docker-compose.yaml`.
+3.  **Levantar la base de datos:**
+    ```bash
+    docker-compose up -d
+    ```
+4.  **Correr en desarrollo:**
+    ```bash
+    npm run start:dev
+    ```
 
 ---
-*Este documento se actualiza dinámicamente según avance el desarrollo.*
+*Voy a ir actualizando este README según vaya cerrando los módulos de la aplicación.*
