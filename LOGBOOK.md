@@ -34,5 +34,13 @@ En este archivo se registran todos los comandos ejecutados durante el desarrollo
 - Creación del decorador personalizado `@GetUser()` para extraer datos del usuario del JWT.
 - Verificación de seguridad: Bloqueo de peticiones no autorizadas (401 Unauthorized).
 
+## Fase 6: Gestión de Publicaciones (Módulo Core)
+- `npx nest generate resource publications --no-spec`: Generación del recurso de publicaciones.
+- Implementación de entidad `Publication` con Enums para estados (DRAFT, ACTIVE, CLOSED).
+- Relaciones ManyToOne con `User` y `Product`.
+- Validación de lógica de negocio: Fechas de inicio y fin, y existencia de productos.
+- `node test-publication.js`: Script de prueba de integración (Login -> Get Product -> Create Publication).
+- Corregidas rutas de importación relativas para asegurar la compilación exitosa.
+
 ---
 *Última actualización: 20 de febrero de 2026*
