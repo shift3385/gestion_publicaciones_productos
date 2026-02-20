@@ -35,5 +35,24 @@ Si acabas de clonar el repo, esto es lo que tienes que hacer:
     npm run start:dev
     ```
 
+## 🛠️ Comandos que uso frecuentemente
+
+- **Levantar todo:** `docker-compose up -d`
+- **Bajar todo (limpiando datos):** `docker-compose down -v`
+- **Crear un nuevo módulo:** `nest generate resource <nombre>`
+- **Compilar para ver errores:** `npm run build`
+
+## 👥 Usuarios de Prueba (Solo Desarrollo)
+
+He creado estos 5 usuarios para que podamos probar el sistema desde ya:
+
+| Nombre Completo | Email | Password |
+| :--- | :--- | :--- |
+| **User#1** | user1@test.com | 123 |
+| **User#2** | user2@test.com | 123 |
+| **User#3** | user3@test.com | 123 |
+| **User#4** | user4@test.com | 123 |
+| **User#5** | user5@test.com | 123 |
+
 ---
-*Voy a ir actualizando este README según vaya cerrando los módulos de la aplicación.*
+*Nota: Estas credenciales son solo para ambiente local y pruebas iniciales.*
