@@ -23,7 +23,7 @@ export class Product {
 
   @ManyToOne(
     () => User,
-    (user) => user.id,
+    (user) => user.products,
     { eager: true } // Carga automáticamente los datos del usuario al consultar el producto
   )
   user: User;

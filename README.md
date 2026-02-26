@@ -1,6 +1,7 @@
 # Gestión de Publicaciones y Productos
 
-Este es el repositorio central donde estoy desarrollando el sistema de gestión de publicaciones y productos. El objetivo es montar una arquitectura sólida con NestJS que me sirva de base para futuros proyectos, aplicando buenas prácticas y asegurando que sea escalable.
+Este es el repositorio central donde estoy desarrollando el sistema de gestión de publicaciones y productos. El objetivo es montar una arquitectura sólida con NestJS que me sirva de base para futuros proyectos, aplicando buenas prácticas y asegurando que sea escalable.  
+La descripción más detallada se encuentra en el archivo: [TASK_DESCRIPTION.md](./TASK_DESCRIPTION.md)
 
 ## 🚀 Lo que he montado hasta ahora
 

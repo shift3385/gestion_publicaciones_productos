@@ -18,7 +18,8 @@ export class AuthService {
     // Nota: Por defecto el password está excluido, tenemos que buscarlo explícitamente
     const user = await (this.usersService as any).userRepository.findOne({
       where: { email },
-      select: ['id', 'email', 'password', 'fullName', 'roles', 'isActive']
+      select: ['id', 'email', 'password', 'roles', 'isActive'],
+      relations: ['profile']
     });
 
     if (!user) {
@@ -44,7 +45,7 @@ export class AuthService {
       token: this.jwtService.sign(payload),
       user: {
         id: user.id,
-        fullName: user.fullName,
+        fullName: user.profile?.fullName || 'Usuario',
         email: user.email,
         roles: user.roles
       }

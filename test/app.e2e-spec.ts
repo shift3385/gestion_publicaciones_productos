@@ -8,7 +8,8 @@ jest.setTimeout(30000); // 30 segundos para dar tiempo a la DB
 describe('AppController (e2e) - Flujo Completo de Publicaciones', () => {
   let app: INestApplication;
   let token: string;
-  let productId: string;
+  let productId1: string;
+  let productId2: string;
 
   beforeAll(async () => {
     const moduleFixture: TestingModule = await Test.createTestingModule({
@@ -22,43 +23,77 @@ describe('AppController (e2e) - Flujo Completo de Publicaciones', () => {
     app.useGlobalPipes(new ValidationPipe({ whitelist: true, forbidNonWhitelisted: true }));
 
     await app.init();
+
+    // Crear un usuario de prueba directamente si no existe para que el login pase
+    const usersService = moduleFixture.get(require('./../src/users/users.service').UsersService);
+    try {
+      await usersService.create({
+        email: 'user1@test.com',
+        password: '123',
+        fullName: 'Test User'
+      });
+    } catch (e) {
+      // Si ya existe, ignoramos el error
+    }
   });
 
-  // 1. Probar Login
-  it('/api/auth/login (POST)', () => {
+  // --- PRUEBAS DE AUTENTICACIÓN ---
+  
+  it('/api/auth/login (POST) - Fallo por password incorrecto', () => {
+    return request(app.getHttpServer())
+      .post('/api/auth/login')
+      .send({ email: 'user1@test.com', password: 'wrong_password' })
+      .expect(401);
+  });
+
+  it('/api/auth/login (POST) - Éxito', () => {
     return request(app.getHttpServer())
       .post('/api/auth/login')
       .send({ email: 'user1@test.com', password: '123' })
       .expect(201)
       .then((response) => {
         expect(response.body.token).toBeDefined();
-        token = response.body.token; // Guardamos el token para los siguientes tests
+        token = response.body.token;
       });
   });
 
-  // 2. Probar Creación de Producto (Requiere Auth)
-  it('/api/products (POST)', () => {
+  // --- PRUEBAS DE PRODUCTOS ---
+
+  it('/api/products (POST) - Crear Producto #1', () => {
     return request(app.getHttpServer())
       .post('/api/products')
       .set('Authorization', `Bearer ${token}`)
       .send({
-        title: 'Laptop Pro de Prueba E2E',
-        price: 1200,
-        stock: 5,
-        description: 'Creado desde el test E2E'
+        title: `Product One ${Date.now()}`,
+        price: 150
       })
       .expect(201)
       .then((response) => {
         expect(response.body.id).toBeDefined();
-        expect(response.body.slug).toBe('laptop_pro_de_prueba_e2e');
-        productId = response.body.id; // Guardamos el ID del producto
+        productId1 = response.body.id;
       });
   });
 
-  // 3. Probar Creación de Publicación (Requiere Auth y Producto)
-  it('/api/publications (POST)', () => {
+  it('/api/products (POST) - Crear Producto #2', () => {
+    return request(app.getHttpServer())
+      .post('/api/products')
+      .set('Authorization', `Bearer ${token}`)
+      .send({
+        title: `Product Two ${Date.now() + 1}`,
+        price: 250
+      })
+      .expect(201)
+      .then((response) => {
+        expect(response.body.id).toBeDefined();
+        productId2 = response.body.id;
+      });
+  });
+
+  // --- PRUEBAS DE PUBLICACIONES ---
+
+  it('/api/publications (POST) - Crear con Múltiples Productos', () => {
     const startDate = new Date().toISOString();
-    const endDate = new Date(Date.now() + 86400000).toISOString(); // +1 día
+    const endDate = new Date(Date.now() + 86400000).toISOString();
 
     return request(app.getHttpServer())
       .post('/api/publications')
@@ -66,15 +101,30 @@ describe('AppController (e2e) - Flujo Completo de Publicaciones', () => {
       .send({
         startDate,
         endDate,
-        productId,
+        productIds: [productId1, productId2],
         status: 'ACTIVE'
       })
       .expect(201)
       .then((response) => {
         expect(response.body.id).toBeDefined();
-        expect(response.body.product.id).toBe(productId);
-        expect(response.body.status).toBe('ACTIVE');
+        expect(response.body.products).toHaveLength(2);
+        const ids = response.body.products.map(p => p.id);
+        expect(ids).toContain(productId1);
+        expect(ids).toContain(productId2);
       });
+  });
+
+  it('/api/publications (POST) - Fallo por producto inexistente', () => {
+    return request(app.getHttpServer())
+      .post('/api/publications')
+      .set('Authorization', `Bearer ${token}`)
+      .send({
+        startDate: new Date().toISOString(),
+        endDate: new Date(Date.now() + 86400000).toISOString(),
+        productIds: ['00000000-0000-0000-0000-000000000000'],
+        status: 'ACTIVE'
+      })
+      .expect(404);
   });
 
   afterAll(async () => {

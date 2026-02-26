@@ -1,4 +1,4 @@
-import { IsDateString, IsUUID, IsEnum, IsOptional } from 'class-validator';
+import { IsDateString, IsUUID, IsEnum, IsOptional, IsArray } from 'class-validator';
 import { PublicationStatus } from '../entities/publication.entity';
 
 export class CreatePublicationDto {
@@ -8,8 +8,9 @@ export class CreatePublicationDto {
   @IsDateString()
   endDate: string;
 
-  @IsUUID()
-  productId: string;
+  @IsArray()
+  @IsUUID(undefined, { each: true })
+  productIds: string[];
 
   @IsEnum(PublicationStatus)
   @IsOptional()
